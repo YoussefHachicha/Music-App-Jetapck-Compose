@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Application Music please</string>
+    <string name="error_fetching_data" translatable="false">خطأ في جلب البيانات</string>
+
+</resources>
