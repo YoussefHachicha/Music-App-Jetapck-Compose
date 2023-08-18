@@ -104,6 +104,14 @@ class MyPlayer() : KoinComponent, Player.Listener {
 		player.volume = 0.5f
 	}
 
+	 fun mute(isMute : Boolean) {
+		 if (isMute) {
+			 player.volume = 0f
+		 } else {
+			 player.volume = 1f
+		 }
+	}
+
 	/**
 	 * Releases the player, freeing any resources it holds.
 	 */

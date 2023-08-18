@@ -10,4 +10,6 @@ interface PlayerEvents {
 	fun onShuffleClick(song: SongModel)
 	fun onSongClick(song: SongModel)
 	fun onSeekBarPositionChanged(position: Long)
+	fun onMuteClick(isMute : Boolean)
+
 }

@@ -217,6 +217,14 @@ class PlayerViewModel() : KoinComponent, PlayerEvents, ViewModel() {
 		myPlayer.repeat(isRepeat)
 	}
 
+	override fun onMuteClick(isMute : Boolean) {
+		myPlayer.mute(isMute)
+	}
+
+
+
+
+
 	override fun onShuffleClick(song: SongModel) {
 		val songsList = _state.value.songs.toMutableList()
 		val currentIndex = songsList.indexOf(song)

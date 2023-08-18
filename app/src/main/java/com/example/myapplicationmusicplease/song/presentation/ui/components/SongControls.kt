@@ -14,37 +14,46 @@ import com.example.myapplicationmusicplease.song.domain.model.SongModel
 
 @Composable
 fun SongControls(
-	selectedSong: SongModel,
-	onPreviousClick: () -> Unit = {},
-	onPlayPauseClick: () -> Unit = {},
-	onNextClick:  () -> Unit = {},
-	onRepeatClick : (Boolean) -> Unit = {},
-	onShuffleClick : () -> Unit = {},
-	onVolumeClick : () -> Unit = {},
+    selectedSong: SongModel,
+    onPreviousClick: () -> Unit = {},
+    onPlayPauseClick: () -> Unit = {},
+    onNextClick: () -> Unit = {},
+    onRepeatClick: (Boolean) -> Unit = {},
+    onMuteClick: (Boolean) -> Unit = {},
+    onShuffleClick: () -> Unit = {},
+    onVolumeClick: () -> Unit = {},
 ) {
-	Row(
-		modifier = Modifier
+    Row(
+        modifier = Modifier
 			.fillMaxWidth()
 			.padding(16.dp),
-		horizontalArrangement = Arrangement.SpaceAround,
-		verticalAlignment = Alignment.CenterVertically
-	) {
-		val repeatState = rememberSaveable { mutableStateOf(false) }
-		VolumeIcon(onClick = onVolumeClick)
-		RepeatIcon(
-			onClick = {
-				repeatState.value = !repeatState.value
-				onRepeatClick(repeatState.value)
-			},
-			repeat = repeatState.value
-		)
-		PreviousIcon(onClick = onPreviousClick)
-		PlayPauseIcon(
-			selectedTrack = selectedSong,
-			onClick = onPlayPauseClick,
-		)
-		NextIcon(onClick = onNextClick)
-		ShuffleIcon(onClick = onShuffleClick)
-		VolumeIcon(onClick = onVolumeClick)
-	}
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        val repeatState = rememberSaveable { mutableStateOf(false) }
+        val muteState = rememberSaveable { mutableStateOf(false) }
+
+        VolumeIcon(onClick = onVolumeClick)
+        RepeatIcon(
+            onClick = {
+                repeatState.value = !repeatState.value
+                onRepeatClick(repeatState.value)
+            },
+            repeat = repeatState.value
+        )
+        PreviousIcon(onClick = onPreviousClick)
+        PlayPauseIcon(
+            selectedTrack = selectedSong,
+            onClick = onPlayPauseClick,
+        )
+        NextIcon(onClick = onNextClick)
+        ShuffleIcon(onClick = onShuffleClick)
+        VolumeIcon(
+            onClick = {
+                muteState.value = !muteState.value
+                onMuteClick(muteState.value)
+            },
+            isMute = muteState.value
+        )
+    }
 }

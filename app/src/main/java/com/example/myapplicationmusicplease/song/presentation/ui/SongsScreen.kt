@@ -201,6 +201,9 @@ fun SongScreen(
                                 AudioManager.ADJUST_SAME,
                                 AudioManager.FLAG_SHOW_UI
                             )
+                        },
+                        onMuteClick = {
+                            playerEvents.onMuteClick(it)
                         }
                     )
                 }

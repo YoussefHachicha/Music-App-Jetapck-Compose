@@ -11,12 +11,16 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplicationmusicplease.R
 
 @Composable
-fun VolumeIcon(onClick: () -> Unit) {
+fun VolumeIcon(
+	onClick: () -> Unit,
+	isMute : Boolean = false
+) {
+
 	IconButton(
-		onClick = onClick
+		onClick = { onClick() }
 	) {
 		Icon(
-			painter = painterResource(id = R.drawable.volume_loud_svgrepo_com),
+			painter = if (isMute) painterResource(id = R.drawable.volume_cross_svgrepo_com) else painterResource(id = R.drawable.volume_loud_svgrepo_com),
 			contentDescription = null,
 			tint = Color.White,
 			modifier = Modifier.size(22.dp)
