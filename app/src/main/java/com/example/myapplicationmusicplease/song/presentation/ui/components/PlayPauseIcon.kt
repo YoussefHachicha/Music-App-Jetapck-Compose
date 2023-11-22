@@ -12,15 +12,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplicationmusicplease.R
 import com.example.myapplicationmusicplease.song.domain.model.SongModel
-import com.example.myapplicationmusicplease.song.player.PlayerStates
+import com.example.myapplicationmusicplease.song.presentation.bussines_logic.PlayerState
 
 @Composable
 fun PlayPauseIcon(
 	selectedTrack: SongModel,
 	onClick: () -> Unit,
-
-	) {
-	if (selectedTrack.state == PlayerStates.STATE_BUFFERING) {
+) {
+	if (selectedTrack.state == PlayerState.PlayerStates.STATE_BUFFERING) {
 		CircularProgressIndicator(
 			modifier = Modifier
 				.size(size = 48.dp)
@@ -33,7 +32,7 @@ fun PlayPauseIcon(
 			println("PlayPauseIcon: ${selectedTrack.state}")
 		}) {
 			Icon(
-				painter = if (selectedTrack.state == PlayerStates.STATE_PLAYING) painterResource(id = R.drawable.pause) else painterResource(id = R.drawable.play),
+				painter = if (selectedTrack.state == PlayerState.PlayerStates.STATE_PLAYING) painterResource(id = R.drawable.pause) else painterResource(id = R.drawable.play),
 				contentDescription = null,
 				tint = Color.White,
 				modifier = Modifier.size(180.dp)

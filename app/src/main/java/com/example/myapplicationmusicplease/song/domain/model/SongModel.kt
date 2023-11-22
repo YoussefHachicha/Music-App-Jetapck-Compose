@@ -1,6 +1,6 @@
 package com.example.myapplicationmusicplease.song.domain.model
 
-import com.example.myapplicationmusicplease.song.player.PlayerStates
+import com.example.myapplicationmusicplease.song.presentation.bussines_logic.PlayerState
 
 data class SongModel(
     val artist: String,
@@ -9,7 +9,7 @@ data class SongModel(
     val title: String,
     val url: String,
     val isSelected: Boolean = false,
-    val state: PlayerStates = PlayerStates.STATE_IDLE
+    val state: PlayerState.PlayerStates = PlayerState.PlayerStates.STATE_IDLE
 ) {
 
     companion object {
@@ -20,7 +20,7 @@ data class SongModel(
             title = "Audio 1",
             url = "https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand60.wav",
             isSelected = false,
-            state = PlayerStates.STATE_IDLE
+            state = PlayerState.PlayerStates.STATE_IDLE
         )
     }
 }

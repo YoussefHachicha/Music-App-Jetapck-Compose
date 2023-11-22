@@ -26,7 +26,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplicationmusicplease.R
-import com.example.myapplicationmusicplease.song.player.PlayerEvents
 import com.example.myapplicationmusicplease.song.presentation.bussines_logic.PlayerEvent
 import com.example.myapplicationmusicplease.song.presentation.bussines_logic.PlayerState
 import com.example.myapplicationmusicplease.song.presentation.ui.components.*
@@ -37,12 +36,16 @@ import kotlinx.coroutines.launch
 @Composable
 fun SongScreen(
     state: PlayerState,
-    playerEvents: PlayerEvents,
     onEvent: (PlayerEvent) -> Unit,
 ) {
 
     LaunchedEffect(state.getSongs.isSuccess) {
         onEvent(PlayerEvent.InitPlayer)
+    }
+
+    LaunchedEffect(key1 = state.playerState) {
+        if (state.songs.isNotEmpty())
+            onEvent(PlayerEvent.UpdatePlayerState(state.playerState))
     }
 
     val keyBoardController = LocalSoftwareKeyboardController.current
@@ -164,7 +167,7 @@ fun SongScreen(
                     SongProgressSlider(
                         state = state,
                         onSeekBarPositionChanged = {
-                            playerEvents.onSeekBarPositionChanged(it)
+                            onEvent(PlayerEvent.OnSeekBarPositionChanged(it))
                         }
                     )
 
@@ -176,24 +179,24 @@ fun SongScreen(
 
                     SongControls(selectedSong = state.songs[state.selectedSongIndex],
                         onPreviousClick = {
-                            playerEvents.onPreviousClick()
+                            onEvent(PlayerEvent.OnPreviousClick)
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage - 1)
                             }
                         },
                         onPlayPauseClick = {
-                            playerEvents.onPlayPauseClick()
+                            onEvent(PlayerEvent.OnPlayPauseClick)
                         },
                         onNextClick = {
-                            playerEvents.onNextClick()
+                            onEvent(PlayerEvent.OnNextClick)
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             }
                         },
                         onRepeatClick = {
-                            playerEvents.onRepeatClick(it)
+                            onEvent(PlayerEvent.OnRepeatClick(it))
                         },
-                        onShuffleClick = { playerEvents.onShuffleClick(song = state.songs[state.selectedSongIndex]) },
+                        onShuffleClick = { onEvent(PlayerEvent.OnShuffleClick(state.songs[state.selectedSongIndex])) },
                         onVolumeClick = {
                             val volumeDialog = AudioManager.STREAM_MUSIC
                             audioManager.adjustStreamVolume(
@@ -203,7 +206,7 @@ fun SongScreen(
                             )
                         },
                         onMuteClick = {
-                            playerEvents.onMuteClick(it)
+                            onEvent(PlayerEvent.OnMuteClick(it))
                         }
                     )
                 }

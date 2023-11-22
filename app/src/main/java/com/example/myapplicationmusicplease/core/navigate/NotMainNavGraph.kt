@@ -23,12 +23,11 @@ fun NotMainNavGraph(
 			route = Routes.SongScreen.route,
 		) {
 
-			val viewModel = viewModel { PlayerViewModel() }
+			val viewModel = viewModel<PlayerViewModel>()
 			val state by viewModel.state.collectAsStateWithLifecycle()
 
 			SongScreen(
 				state = state,
-				playerEvents = viewModel,
 				onEvent = viewModel::onEvent,
 			)
 		}

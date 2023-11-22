@@ -6,7 +6,6 @@ import androidx.media3.exoplayer.ExoPlayer
 import com.example.myapplicationmusicplease.song.data.remote.SongClient
 import com.example.myapplicationmusicplease.song.data.repository.SongRepositoryImpl
 import com.example.myapplicationmusicplease.song.domain.repository.SongRepository
-import com.example.myapplicationmusicplease.song.player.MyPlayer
 import com.example.myapplicationmusicplease.song.presentation.bussines_logic.PlayerViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,8 +24,6 @@ val songModule = module {
         println("ExoPlayer instance created: $exoPlayer")
         exoPlayer
     }
-    single{ MyPlayer() }
-
     viewModel { PlayerViewModel() }
 
 }
